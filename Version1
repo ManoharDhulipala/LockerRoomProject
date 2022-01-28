@@ -1,0 +1,55 @@
+#include<iostream>
+#include<vector>
+#include<chrono>
+
+using namespace std;
+using namespace std::chrono;
+int main() {
+
+    int lockerNum;
+    cout << "Enter the number of lockers: ";
+    cin >> lockerNum;
+    cout << endl;
+
+    auto start = high_resolution_clock::now();
+
+    int counter = 1;
+
+    vector<int> locker(lockerNum, 0);//Zero represents a closed locker
+
+    for (int i = 1; i < lockerNum + 1; i++) {
+
+        for (int j = 1; j < lockerNum + 1; j++) {
+            if (j % counter == 0) {
+
+                if (locker.at(j - 1) == 0) {
+
+                locker.at(j - 1) = 1;
+
+                }
+
+                else if (locker.at(j - 1) == 1) {
+
+                locker.at(j - 1) = 0;
+
+                }
+
+            }
+        }
+        counter++;
+    }
+
+    for (int i = 0; i < lockerNum; i++) {
+
+        cout << locker.at(i) << " ";
+
+    }
+
+    cout << endl;
+
+    auto stop = high_resolution_clock::now();
+
+    auto duration = duration_cast<microseconds>(stop - start);
+
+    cout << duration.count() << " microseconds" << endl;
+}
